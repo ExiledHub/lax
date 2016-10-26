@@ -1,0 +1,60 @@
+<project name="LAX Compiler" default="compile">
+  <description>
+    Esta es la implementacion del compilador LAX Compiler.
+  </description>
+  
+  <property name="src" location="src"/>
+  <property name="build" location="bin"/>
+  <property name="doc" location="doc"/>
+  <property name="antlrDir" location="src/lexer/antlr"/>
+  <property name="jflexDir" location="src/lexer/jflex"/>
+  <property name="laxPackage" location="src/co/edu/eafit/dis/st0270/lax"/>
+  <property name="lexerDest" location="${laxPackage}/lexer"/>
+  <property name="parserDest" location="${laxPackage}/parser"/>
+
+  <property environment="env"/>
+  
+  <target name="init">
+    <mkdir dir="${build}"/>
+    <mkdir dir="${lexerDest}/jflex"/>
+    <mkdir dir="${lexerDest}/antlr"/>
+    <mkdir dir="${doc}"/>
+  </target>
+  
+  <taskdef classname="JFlex.anttask.JFlexTask" name="jflex"/>
+  
+  <target name="genJFlex">
+    <jflex file="${jflexDir}/LaxJFlexLexer.jflex"
+	   destdir="${src}"
+           verbose="true"/>
+  </target>
+  
+  <target name="antlr" depends="init">
+    <antlr:ant-antlr3 xmlns:antlr="antlib:org/apache/tools/ant/antlr"
+		      verbose="true"
+		      outputdirectory="${lexerDest}/antlr"
+		      target="src/lexer/antlr/LaxAntlrLexer.g"/>
+    <mkdir dir="${parserDest}/antlr"/>
+    <antlr:ant-antlr3 xmlns:antlr="antlib:org/apache/tools/ant/antlr"
+		      verbose="true"
+		      outputdirectory="${parserDest}/antlr"
+		      target="src/parser/antlr/LaxAntlrParser.g"/>
+  </target>
+  
+  <target name="compile" depends="init,genJFlex,antlr">
+    <javac includeantruntime="true" srcdir="${src}" destdir="${build}"/>
+  </target>
+  
+  <target name="clean">
+    <delete file="${lexerDest}/LaxJFlexLexer.java"/>
+    <delete dir="${build}"/>
+    <delete dir="${doc}"/>
+    <delete dir="${lexerDest}/antlr"/>
+    <delete dir="${lexerDest}/jflex"/>
+    <delete dir="${parserDest}/antlr"/>
+  </target>
+
+  <target name="doc" depends="init" description="Generates documentation">
+    <javadoc sourcepath="${lexerDest}" destdir="${doc}"/>
+  </target>
+</project>

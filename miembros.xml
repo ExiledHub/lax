@@ -1,0 +1,44 @@
+<!-- Miembros -->
+<grupo>
+  
+  <nombre>LaxCompiler</nombre>
+  
+  <url>https://riouxsvn.com/svn/lax</url>
+  
+  <miembro>
+    
+    <nombre>Juan Manuel Mejia Botero</nombre>
+    
+    <codigo>201420003010</codigo>
+    
+    <email>jmejiab1@eafit.edu.co</email>
+    
+  </miembro>
+  
+  <miembro>
+    
+    <nombre>Sebastian Lopez Valencia</nombre>
+    
+    <codigo>201320012010</codigo>
+    
+    <email>slopezv2@eafit.edu.co</email>
+    
+  </miembro>
+  
+  <proyecto>
+    
+    <java>
+      
+      <mainclases>
+	
+	<mainclass srcdir="src" package="main" clase="MainLaxJFlexLexer"/>
+	
+	<mainclass srcdir="src" package="main" clase="MainLaxAntlrLexer"/>
+	
+      </mainclases>
+      
+    </java>
+    
+  </proyecto>
+  
+</grupo>
